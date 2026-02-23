@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Overlay</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Beispiel-Canvas */
+        canvas {
+            display: block;
+            background: #111;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .card {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid #00e0ff;
+            border-radius: 20px;
+            padding: 30px;
+            width: min(90%, 560px);
+            color: white;
+            box-shadow: 0 0 30px #00e0ff55;
+            animation: pop 0.25s ease-out;
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+            color: #00e0ff;
+            font-size: 26px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 16px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        .key {
+            background: #222;
+            border: 1px solid #00e0ff;
+            border-radius: 8px;
+            padding: 5px 10px;
+            margin-right: 6px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .info {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #444;
+            font-size: 16px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background: #00e0ff;
+            border: none;
+            color: black;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            min-height: 40px;
+        }
+
+        .close {
+            background: #ff4444;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="game"></canvas>
+
+    <div class="overlay" id="overlay">
+        <div class="card">
+            <div class="topbar">
+                <button class="btn" onclick="toggleLanguage()" id="langButton"><img src="img/united-kingdom-flag.png"
+                        alt="English"></button>
+            </div>
+
+            <h1 id="title">Spielanleitung Desktop</h1>
+
+            <ul>
+                <li id="move"></li>
+                <li id="rotate"></li>
+                <li id="shoot"></li>
+            </ul>
+
+            <div class="info">
+                <div id="duration"></div>
+                <div id="pause"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = "de";
+        const overlay = document.getElementById("overlay");
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            if (lang === "en") {
+                title.innerText = "Game Instructions Desktop";
+                langButton.innerHTML = '<img src="img/germany-flag.png" alt="Deutsch">';
+
+                move.innerHTML = '<span class="key">↑ ↓ ← →</span> Move (until the colored bar above the player disappears)';
+                rotate.innerHTML = '<span class="key">PGUP</span><span class="key">PGDOWN</span><span class="key">.</span><span class="key">-</span> Rotate player';
+                shoot.innerHTML = '<span class="key">Space</span> Shoot (hold and release for distance)';
+                duration.innerText = "The game lasts 5 minutes.";
+                pause.innerHTML = '<span class="key">ESC</span> Pause';
+            } else {
+                title.innerText = "Spielanleitung";
+                langButton.innerHTML = '<img src="img/united-kingdom-flag.png" alt="English">';
+
+                move.innerHTML = '<span class="key">↑ ↓ ← →</span> Bewegen (bis der farbige Balken verschwindet)';
+                rotate.innerHTML = '<span class="key">PGUP</span><span class="key">PGDOWN</span><span class="key">.</span><span class="key">-</span> Spieler drehen';
+                shoot.innerHTML = '<span class="key">Leertaste</span> Schießen (halten & loslassen für Schussweite)';
+                duration.innerText = "Das Spiel geht 5 Minuten.";
+                pause.innerHTML = '<span class="key">ESC</span> Pause';
+            }
+        }
+
+        function toggleLanguage() {
+            setLanguage(currentLang === "de" ? "en" : "de");
+        }
+
+        /* Automatische Sprache */
+        document.addEventListener("DOMContentLoaded", () => {
+            const lang = navigator.language.toLowerCase();
+            setLanguage(lang.startsWith("de") ? "de" : "en");
+        });
+    </script>
+
+</body>
+
+</html>
