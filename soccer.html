@@ -388,6 +388,7 @@
                 pauseAfterPossession: "Wechselpause:",
                 none: "keine",
                 speed: "Speed:",
+                speedSlow: "langsam",
                 speedNormal: "normal",
                 speedFast: "schnell",
                 speedVeryFast: "sehr schnell",
@@ -403,6 +404,7 @@
                 pauseAfterPossession: "Pause on Possession Change:",
                 none: "none",
                 speed: "Speed:",
+                speedSlow: "slow",
                 speedNormal: "normal",
                 speedFast: "fast",
                 speedVeryFast: "very fast",
@@ -515,6 +517,7 @@
                     <div class="form-row">
                         <label for="level">${t.speed}</label>
                         <select id="level" name="level">
+                            <option value="4">${t.speedSlow}</option>
                             <option value="0">${t.speedNormal}</option>
                             <option value="1">${t.speedFast}</option>
                             <option value="2">${t.speedVeryFast}</option>
@@ -691,6 +694,9 @@
 
             let spielgeschwindigkeit;
             switch (level) {
+                case 4:
+                    spielgeschwindigkeit = 55;
+                    break;
                 case 0:
                     spielgeschwindigkeit = 40;
                     break;
