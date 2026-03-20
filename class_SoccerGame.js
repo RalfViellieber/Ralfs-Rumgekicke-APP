@@ -89,6 +89,7 @@ export class SoccerGame {
         // Bind event listeners
         document.addEventListener('keydown', this.keyPressed.bind(this));
         document.addEventListener('keyup', this.keyReleased.bind(this));
+        document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
 
         // Initialize
         this.init();
@@ -109,6 +110,14 @@ export class SoccerGame {
 
         // Double Tap Detection
         this.lastTapTime = 0;
+    }
+
+    handleVisibilityChange() {
+        if (document.hidden) {
+            Howler.mute(true);
+        } else {
+            Howler.mute(false);
+        }
     }
 
     // einmaliges Laden von allem
