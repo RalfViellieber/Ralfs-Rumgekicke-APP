@@ -1,5 +1,5 @@
 // für PWA
-const CACHE_NAME = 'viellieber-eu-cache-fb-v3';
+const CACHE_NAME = 'viellieber-eu-cache-fb-v4';
 const urlsToCache = [
   './',
   './soccer.html',
