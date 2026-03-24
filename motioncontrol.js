@@ -161,6 +161,9 @@ export function Aktion_SPACE() {
 export function pauseGame() {
     if (this.Spiel_laeuft) {
         this.Spiel_laeuft = false;
+        if (typeof Howler !== 'undefined') {
+            Howler.mute(true);
+        }
     }
 }
 
@@ -187,6 +190,9 @@ export function keyPressed(event) {
                     this.spielstatus = 0;
                 } else {
                     this.Spiel_laeuft = true;
+                    if (typeof Howler !== 'undefined') {
+                        Howler.mute(false);
+                    }
                     this.playSound('a_pfiff');
                 }
             } else {
@@ -248,6 +254,9 @@ export function handleTouchStart(event) {
                     this.spielstatus = 0;
                 } else {
                     this.Spiel_laeuft = true;
+                    if (typeof Howler !== 'undefined') {
+                        Howler.mute(false);
+                    }
                     this.playSound('a_pfiff');
                 }
             } else {

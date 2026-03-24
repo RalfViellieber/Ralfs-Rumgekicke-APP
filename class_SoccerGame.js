@@ -116,7 +116,9 @@ export class SoccerGame {
         if (document.hidden) {
             Howler.mute(true);
         } else {
-            Howler.mute(false);
+            if (this.Spiel_laeuft !== false) {
+                Howler.mute(false);
+            }
         }
     }
 
